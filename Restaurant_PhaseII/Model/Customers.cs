@@ -17,19 +17,17 @@ namespace Restaurant_PhaseII.Model
 
         public Customer Authenticate(string username, string password)
         {
-            Customer c = customers.Where(o => o.userName == username).First();
-            if(c != null)
+            Customer c = customers.Where(o => (o.userName == username) && (o.password == password));
+
+            if(c.Count() > 0 )
             {
-                if(c.password == password)
-                {
-                    return c;
-                }
-                else
-                {
-                    return null;
-                }
+                return c.First();
             }
-            return null;
+            else
+            {
+                return null;
+            }
+
         }
     }
 }

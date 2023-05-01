@@ -3,8 +3,8 @@ namespace Restaurant_PhaseII.Model
 {
 	public class CustomerReservation
 	{
-		Customer customer { get; set; }
-		Reservation reservation { get; set; }
+		public Customer customer { get; set; }
+		public Reservation reservation { get; set; }
 
 		public CustomerReservation(Customer c, Reservation r)
 		{

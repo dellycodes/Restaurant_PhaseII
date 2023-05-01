@@ -62,7 +62,118 @@ namespace Restaurant_PhaseII
 
         static void Menu()
         {
+            bool done = false;
 
+            while (done)
+            {
+                Console.WriteLine("Options: Login: 1 --- Logout: 2 --- Sign Up: 3 --- Reservations: 4 --- Clear Screen: c --- Quit: q ---");
+                Console.Write("Choice: ");
+                string choice = Console.ReadLine();
+                switch (choice)
+                {
+                    case "1":
+                        LoginMenu();
+                        break;
+                    case "2":
+                        LogoutMenu();
+                        break;
+                    case "3":
+                        SignupMenu();
+                        break;
+                    case "4":
+                        GetCurrentReservationsMenu();
+                        break;
+                    case "c":
+                        Console.Clear();
+                        break;
+                    case "q":
+                        done = true;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid Command!");
+                        break;
+                }
+            }
+        }
+
+
+        static void LoginMenu()
+        {
+            if(authenticatedCustomer == null)
+            {
+                Console.Write("Enter your username: ");
+                string username = Console.ReadLine();
+                Console.Write("Enter your password: ");
+                string password = Console.ReadLine();
+                authenticatedCustomer = customers.Authenticate(username, password);
+                if (authenticatedCustomer != null)
+                {
+                    Console.WriteLine($"Welcome {authenticatedCustomer.firstName}");
+                }
+                else
+                {
+                    Console.WriteLine("Invalid username or password!");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"You are already logged in as {authenticatedCustomer.userName}");
+            }
+        }
+
+
+        static void LogoutMenu()
+        {
+            authenticatedCustomer = null;
+            Console.WriteLine("Logged out!");
+        }
+
+        static void SignupMenu()
+        {
+            Console.Write("First Name: ");
+            string firstName = Console.ReadLine();
+            Console.Write("Last Name: ");
+            string lastName = Console.ReadLine();
+            Console.Write("Username: ");
+            string userName = Console.ReadLine();
+            Console.Write("Password: ");
+            string password = Console.ReadLine();
+
+            var newCustomer = new Customer
+            {
+                firstName = firstName,
+                lastName = lastName,
+                userName = userName,
+                password = password
+            };
+
+            customers.customers.Add(newCustomer);
+
+            Console.WriteLine("Profile created!");
+        }
+
+
+        static void GetCurrentReservationsMenu()
+        {
+            if(authenticatedCustomer == null)
+            {
+                Console.WriteLine("You are not logged in.");
+                return;
+            }
+
+            var reservationList = customerReservations.Where(o => o.customer.userName == authenticatedCustomer.userName);
+
+            if(reservationList.Count() == 0)
+            {
+                Console.WriteLine("0 appointments found.");
+            }
+            else
+            {
+                foreach(var reservation in reservationList)
+                {
+                    Console.WriteLine(reservation.reservation.date);
+                }
+            }
         }
     }
 }
