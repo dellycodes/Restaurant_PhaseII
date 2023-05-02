@@ -22,17 +22,17 @@ namespace Restaurant_PhaseII
         {
             var c1 = new Customer
             {
-                firstName = "Delly",
-                lastName = "Codes",
-                userName = "dellycodes",
-                password = "password"
+                FirstName = "Delly",
+                LastName = "Codes",
+                Username = "dellycodes",
+                Password = "password"
             };
             var c2 = new Customer
             {
-                firstName = "Laquan",
-                lastName = "Mimsy",
-                userName = "HumbleBeast",
-                password = "5678"
+                FirstName = "Laquan",
+                LastName = "Mimsy",
+                Username = "HumbleBeast",
+                Password = "5678"
             };
             var a1 = new Reservation();
             var a2 = new Reservation();
@@ -108,7 +108,7 @@ namespace Restaurant_PhaseII
                 authenticatedCustomer = customers.Authenticate(username, password);
                 if (authenticatedCustomer != null)
                 {
-                    Console.WriteLine($"Welcome {authenticatedCustomer.firstName}");
+                    Console.WriteLine($"Welcome {authenticatedCustomer.FirstName}");
                 }
                 else
                 {
@@ -117,7 +117,7 @@ namespace Restaurant_PhaseII
             }
             else
             {
-                Console.WriteLine($"You are already logged in as {authenticatedCustomer.userName}");
+                Console.WriteLine($"You are already logged in as {authenticatedCustomer.Username}");
             }
         }
 
@@ -141,10 +141,10 @@ namespace Restaurant_PhaseII
 
             var newCustomer = new Customer
             {
-                firstName = firstName,
-                lastName = lastName,
-                userName = userName,
-                password = password
+                FirstName = firstName,
+                LastName = lastName,
+                Username = userName,
+                Password = password
             };
 
             customers.customers.Add(newCustomer);
@@ -161,7 +161,7 @@ namespace Restaurant_PhaseII
                 return;
             }
 
-            var reservationList = customerReservations.Where(o => o.customer.userName == authenticatedCustomer.userName);
+            var reservationList = customerReservations.Where(o => o.customer.Username == authenticatedCustomer.Username);
 
             if(reservationList.Count() == 0)
             {

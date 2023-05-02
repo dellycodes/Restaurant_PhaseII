@@ -17,7 +17,7 @@ namespace Restaurant_PhaseII.Model
 
         public Customer Authenticate(string username, string password)
         {
-            Customer c = (Customer)customers.Where(o => (o.userName == username) && (o.password == password));
+            var c = customers.Where(o => (o.Username == username) && (o.Password == password));
 
             if(c.Count() > 0 )
             {
