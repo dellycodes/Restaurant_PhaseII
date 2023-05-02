@@ -165,7 +165,7 @@ namespace Restaurant_PhaseII
 
             if(reservationList.Count() == 0)
             {
-                Console.WriteLine("0 appointments found.");
+                Console.WriteLine("0 reservations found.");
             }
             else
             {
