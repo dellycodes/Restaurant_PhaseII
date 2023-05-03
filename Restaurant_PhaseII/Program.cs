@@ -65,7 +65,7 @@ namespace Restaurant_PhaseII
 
             while (!done)
             {
-                Console.WriteLine("Options: Login: 1 --- Logout: 2 --- Sign Up: 3 --- Reservations: 4 --- Clear Screen: c --- Quit: q ---");
+                Console.WriteLine("Options: Login: 1 --- Logout: 2 --- Sign Up: 3 --- Open Reservations: 4 --- Book Reservation: 5 --- Clear Screen: c --- Quit: q ---");
                 Console.Write("Choice: ");
                 string choice = Console.ReadLine();
                 switch (choice)
@@ -81,6 +81,9 @@ namespace Restaurant_PhaseII
                         break;
                     case "4":
                         GetCurrentReservationsMenu();
+                        break;
+                    case "5":
+                        MakeReservationsMenu();
                         break;
                     case "c":
                         Console.Clear();
@@ -178,6 +181,54 @@ namespace Restaurant_PhaseII
                 {
                     Console.WriteLine(reservation.reservation.date);
                 }
+            }
+        }
+
+        static void MakeReservationsMenu()
+        {
+            if (authenticatedCustomer == null)
+            {
+                Console.WriteLine("You must be logged in to make a reservation.");
+                return;
+            }
+
+            Console.Write("Enter the date of your reservation (mm/dd/yyyy): ");
+            DateTime date;
+            while (!DateTime.TryParse(Console.ReadLine(), out date))
+            {
+                Console.Write("Invalid date format. Please enter a date in the format mm/dd/yyyy: ");
+            }
+
+            // Check if the requested reservation date is available
+            bool isAvailable = true;
+            foreach (var reservation in reservations)
+            {
+                if (reservation.date.Date == date.Date && !reservation.IsAvailable(1))
+                {
+                    isAvailable = false;
+                    break;
+                }
+            }
+
+            if (isAvailable)
+            {
+                // Create a new reservation and add it to the list of reservations
+                var newReservation = new Reservation
+                {
+                    date = date,
+                };
+
+                reservations.Add(newReservation);
+
+                // Create a new customer reservation and add it to the list of customer reservations
+                var newCustomerReservation = new CustomerReservation(authenticatedCustomer, newReservation);
+                customerReservations.Add(newCustomerReservation);
+
+                Console.WriteLine("Reservation created!");
+            }
+            else
+            {
+                Console.WriteLine("Sorry, the requested date is not available.");
             }
         }
 

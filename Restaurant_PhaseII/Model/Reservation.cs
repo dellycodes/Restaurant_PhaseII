@@ -13,7 +13,7 @@ namespace Restaurant_PhaseII.Model
         private static int autoIncrement;
         public int ID { get; set; }
 
-        public int TotalTables { get; set; }
+        public int TotalTables = 20;
 
         public Customer Customer { get; set; }
 
