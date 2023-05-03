@@ -55,7 +55,7 @@ namespace Restaurant_PhaseII
             customerReservations.Add(ca1);
             customerReservations.Add(ca2);
             customerReservations.Add(ca3);
-
+            
 
 
         }
@@ -64,7 +64,7 @@ namespace Restaurant_PhaseII
         {
             bool done = false;
 
-            while (done)
+            while (!done)
             {
                 Console.WriteLine("Options: Login: 1 --- Logout: 2 --- Sign Up: 3 --- Reservations: 4 --- Clear Screen: c --- Quit: q ---");
                 Console.Write("Choice: ");
