@@ -21,8 +21,6 @@ namespace Restaurant_PhaseII.Model
         {
             Customers.Add(customer);
         }
-
-
     }
 
 }

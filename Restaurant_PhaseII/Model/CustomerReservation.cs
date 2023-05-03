@@ -14,15 +14,16 @@ namespace Restaurant_PhaseII.Model
 
         public void MakeReservation(Waitlist waitlist)
         {
-            if (reservation.IsAvailable())
+            if (!reservation.IsAvailable())
             {
-                reservation.AddReservation(customer);
-                Console.WriteLine($"{customer} made a reservation for {reservation.date.ToString("yyyy/MM/dd HH:mm")}.");
+               waitlist.AddCustomer(customer);
+                Console.WriteLine($"{customer} could not make a reservation for {reservation.date} because it is full.");
             }
             else
             {
-                Console.WriteLine("{0} could not make a reservation for {1} because it is full.", customer, reservation.date.ToString("yyyy/MM/dd HH:mm"));
-                waitlist.AddCustomer(customer);
+                reservation.AddReservation(customer);
+                Console.WriteLine($"{customer} made a reservation for {reservation.date.ToString("yyyy/MM/dd HH:mm")}."));
+                
             }
         }
     }
