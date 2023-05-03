@@ -10,6 +10,7 @@ namespace Restaurant_PhaseII
         private static List<Reservation> reservations;
         private static List<CustomerReservation> customerReservations;
         private static Customer authenticatedCustomer;
+
         
         static void Main(string[] args)
         {
@@ -55,8 +56,14 @@ namespace Restaurant_PhaseII
             customerReservations.Add(ca1);
             customerReservations.Add(ca2);
             customerReservations.Add(ca3);
-            
 
+            foreach (Reservation reservation in reservations)
+            {
+                foreach (Customer customer in reservation.ReservedTables)
+                {
+                    Console.WriteLine("Reserved table for: " + customer.FirstName + " " + customer.LastName);
+                }
+            }
 
         }
 
@@ -175,19 +182,10 @@ namespace Restaurant_PhaseII
             }
         }
 
-        public void MakeReservation(Customer c, Reservation reservation)
+        public void MakeReservation()
         {
-            if (!reservation.IsAvailable)
-            {
-                Console.WriteLine($"{c.FirstName} could not make a reservation for {reservation.date} because it is full.");
-            }
-            else
-            {
-                reservations.Add(reservation);
-                Console.WriteLine($"{c.FirstName} made a reservation for {reservation.date.ToString("yyyy/MM/dd HH:mm")}.");
-
-            }
-
+            var Reserved = new Reservation();
         }
+
     }
 }  

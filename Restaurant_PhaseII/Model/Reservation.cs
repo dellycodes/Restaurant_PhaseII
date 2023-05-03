@@ -13,9 +13,11 @@ namespace Restaurant_PhaseII.Model
         private static int autoIncrement;
         public int ID { get; set; }
 
-        static public int TotalTables = 20;
+        public int TotalTables { get; set; }
 
         public Customer Customer { get; set; }
+
+        public List<Customer> ReservedTables { get; set; }
 
         public Staff AssignedStaff { get; set; }
         public DateTime date { get; set; }
@@ -24,11 +26,31 @@ namespace Restaurant_PhaseII.Model
         {
             autoIncrement++;
             ID = autoIncrement;
+            ReservedTables = new List<Customer>();
         }
 
-        public bool IsAvailable(Customer c, int TotalTables)
+        public Reservation(int totalTables)
         {
-            return (c.Count < TotalTables);
+            TotalTables = totalTables;
+            ReservedTables = new List<Customer>();
+        }
+
+        public bool IsAvailable(int totalTables)
+        {
+            return (ReservedTables.Count < totalTables);
+        }
+
+        public bool AddCustomer(Customer customer)
+        {
+            if (IsAvailable(TotalTables))
+            {
+                ReservedTables.Add(customer);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void AssignStaff(Staff staff)
