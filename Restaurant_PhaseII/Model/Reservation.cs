@@ -13,23 +13,12 @@ namespace Restaurant_PhaseII.Model
         private static int autoIncrement;
         public int ID { get; set; }
 
-        public Customer Customer { get; set; }
+        static public int TotalTables = 20;
 
-        public int PartySize { get; set; }
+        public Customer Customer { get; set; }
 
         public Staff AssignedStaff { get; set; }
         public DateTime date { get; set; }
-
-        public bool IsAvailable(int partySize)
-        {
-            // Check if reservation is available based on party size and existing customers
-            int totalGuests = Customers.Count(c => PartySize);
-            return PartySize >= partySize && totalGuests + partySize <= PartySize;
-        }
-        public void AddReservation(Customer customer)
-        {
-            Customers.Add(customer);
-        }
 
         public Reservation()
         {
@@ -37,14 +26,9 @@ namespace Restaurant_PhaseII.Model
             ID = autoIncrement;
         }
 
-        public Reservation(Customer customer, int partySize, DateTime date)
+        public bool IsAvailable(Customer c, int TotalTables)
         {
-            autoIncrement++;
-            ID = autoIncrement;
-            Customer = customer;
-            PartySize = partySize;
-            this.date = date;
-            Customers.Add(customer);
+            return (c.Count < TotalTables);
         }
 
         public void AssignStaff(Staff staff)

@@ -152,7 +152,6 @@ namespace Restaurant_PhaseII
             Console.WriteLine("Profile created!");
         }
 
-
         static void GetCurrentReservationsMenu()
         {
             if(authenticatedCustomer == null)
@@ -174,6 +173,21 @@ namespace Restaurant_PhaseII
                     Console.WriteLine(reservation.reservation.date);
                 }
             }
+        }
+
+        public void MakeReservation(Customer c, Reservation reservation)
+        {
+            if (!reservation.IsAvailable)
+            {
+                Console.WriteLine($"{c.FirstName} could not make a reservation for {reservation.date} because it is full.");
+            }
+            else
+            {
+                reservations.Add(reservation);
+                Console.WriteLine($"{c.FirstName} made a reservation for {reservation.date.ToString("yyyy/MM/dd HH:mm")}.");
+
+            }
+
         }
     }
 }  
