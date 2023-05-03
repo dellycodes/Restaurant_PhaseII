@@ -57,14 +57,6 @@ namespace Restaurant_PhaseII
             customerReservations.Add(ca2);
             customerReservations.Add(ca3);
 
-            foreach (Reservation reservation in reservations)
-            {
-                foreach (Customer customer in reservation.ReservedTables)
-                {
-                    Console.WriteLine("Reserved table for: " + customer.FirstName + " " + customer.LastName);
-                }
-            }
-
         }
 
         static void Menu()
@@ -131,8 +123,15 @@ namespace Restaurant_PhaseII
 
         static void LogoutMenu()
         {
-            authenticatedCustomer = null;
-            Console.WriteLine("Logged out!");
+            if(authenticatedCustomer != null)
+            {
+                authenticatedCustomer = null;
+                Console.WriteLine("Logged out!");
+            }
+            else
+            {
+                Console.WriteLine("You are not logged in!");
+            }
         }
 
         static void SignupMenu()
