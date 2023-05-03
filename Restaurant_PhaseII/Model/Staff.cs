@@ -9,15 +9,14 @@ namespace Restaurant_PhaseII.Model
    
         public class Staff
         {
-            public int Id { get; set; }
+            public int ID { get; set; }
             public string Name { get; set; }
            
 
             public Staff(int id, string name, string role)
             {
-                Id = id;
+                ID = id;
                 Name = name;
-               
             }
         }
 
