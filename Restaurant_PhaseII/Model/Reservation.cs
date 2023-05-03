@@ -12,6 +12,8 @@ namespace Restaurant_PhaseII.Model
         private static int autoIncrement;
         public int ID { get; set; }
 
+        public Customer Customer { get; set; }
+
         public int PartySize { get; set; }
 
         public Staff AssignedStaff { get; set; }
@@ -37,6 +39,11 @@ namespace Restaurant_PhaseII.Model
         public void AssignStaff(Staff staff)
         {
             AssignedStaff = staff;
+        }
+
+        internal bool IsAvailable()
+        {
+            throw new NotImplementedException();
         }
     }
 }
