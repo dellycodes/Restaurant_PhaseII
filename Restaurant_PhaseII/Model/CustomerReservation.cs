@@ -22,7 +22,7 @@ namespace Restaurant_PhaseII.Model
             else
             {
                 reservation.AddReservation(customer);
-                Console.WriteLine($"{customer} made a reservation for {reservation.date.ToString("yyyy/MM/dd HH:mm")}."));
+                Console.WriteLine($"{customer} made a reservation for {reservation.date.ToString("yyyy/MM/dd HH:mm")}.");
                 
             }
         }
