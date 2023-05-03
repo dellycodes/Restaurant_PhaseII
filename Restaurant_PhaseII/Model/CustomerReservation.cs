@@ -21,7 +21,7 @@ namespace Restaurant_PhaseII.Model
             }
             else
             {
-                Console.WriteLine("{0} could not make a reservation for {1} because it is full.", customer.Name, reservation.Date.ToString("yyyy/MM/dd HH:mm"));
+                Console.WriteLine("{0} could not make a reservation for {1} because it is full.", customer, reservation.date.ToString("yyyy/MM/dd HH:mm"));
                 waitlist.AddCustomer(customer);
             }
         }

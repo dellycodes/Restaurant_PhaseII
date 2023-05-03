@@ -17,7 +17,12 @@ namespace Restaurant_PhaseII.Model
             waitlist = new List<Customer>();
         }
 
-       
+        public void AddCustomer(Customer customer)
+        {
+            Customers.Add(customer);
+        }
+
+
     }
 
 }

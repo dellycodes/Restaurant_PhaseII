@@ -17,6 +17,17 @@ namespace Restaurant_PhaseII.Model
         public Staff AssignedStaff { get; set; }
         public DateTime date { get; set; }
 
+        public bool IsAvailable(int partySize)
+        {
+            // Check if reservation is available based on party size and existing customers
+            int totalGuests = Customers.Sum(c => c.PartySize);
+            return PartySize >= partySize && totalGuests + partySize <= PartySize;
+        }
+        public void AddReservation(Customer customer)
+        {
+            Customers.Add(customer);
+        }
+
         public Reservation()
         {
             autoIncrement++;
