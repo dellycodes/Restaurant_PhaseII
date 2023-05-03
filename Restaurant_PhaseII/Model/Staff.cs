@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Restaurant_PhaseII.Model
 {
-   
         public class Staff
         {
             public int ID { get; set; }
@@ -19,6 +18,5 @@ namespace Restaurant_PhaseII.Model
                 Name = name;
             }
         }
-
     }
 

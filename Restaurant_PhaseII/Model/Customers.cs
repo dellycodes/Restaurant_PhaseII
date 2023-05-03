@@ -29,15 +29,5 @@ namespace Restaurant_PhaseII.Model
             }
 
         }
-
-        internal static void Add(Customer customer)
-        {
-            throw new NotImplementedException();
-        }
-
-        internal static int Sum(Func<object, object> value)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
