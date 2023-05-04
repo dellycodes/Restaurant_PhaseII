@@ -10,18 +10,18 @@ namespace Restaurant_PhaseII.Model
 {
     public class Reservation
     {
+        // Necessary properties and attributes for a reservation.
+
         private static int autoIncrement;
         public int ID { get; set; }
 
-        public static int TotalTables = 20;
+        public static int TotalTables { get; set; } = 20;
 
         public int AvailableTables { get; set; } = 20;
 
         public Customer Customer { get; set; }
 
         public List<Customer> ReservedTables { get; set; } = new List<Customer>();
-
-        public Staff AssignedStaff { get; set; }
 
         public DateTime date;
 
@@ -37,28 +37,31 @@ namespace Restaurant_PhaseII.Model
         {
             TotalTables = totalTables;
         }
+        // Allow for outside use of total tables
 
         public bool IsAvailable()
         {
             return AvailableTables > 0;
         }
+        // It's only available if there's more than 0 available tables
 
         public bool IsAvailable(int numTables)
         {
             return AvailableTables >= numTables;
         }
 
-        public void MakeReservation(int numTables)
+        public void MakeReservation(int TotalTables)
         {
-            if (IsAvailable(numTables))
+            if (IsAvailable(TotalTables))
             {
-                AvailableTables -= numTables;
+                AvailableTables -= TotalTables;
             }
             else
             {
                 throw new Exception("Not enough available tables.");
             }
         }
+        // Removes an available table from the total tables when needed.
 
         public bool AddCustomer(Customer customer)
         {
@@ -73,10 +76,6 @@ namespace Restaurant_PhaseII.Model
                 return false;
             }
         }
-
-        public void AssignStaff(Staff staff)
-        {
-            AssignedStaff = staff;
-        }
+        // When a reservation is added by any given customer, available tables is subtracted by 1.
     }
 }

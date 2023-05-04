@@ -15,6 +15,8 @@ namespace Restaurant_PhaseII.Model
             customers = new List<Customer>();
         }
 
+        // Creates Customers list that allows for the restaurant to keep track of them. Details in "Customer" class.
+
         public Customer Authenticate(string username, string password)
         {
             var c = customers.Where(o => (o.Username == username) && (o.Password == password));

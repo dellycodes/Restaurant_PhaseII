@@ -20,6 +20,7 @@ namespace Restaurant_PhaseII
             Initialize();
             Menu();
         }
+        // Opens the menu for users
 
         static void Initialize()
         {
@@ -60,6 +61,7 @@ namespace Restaurant_PhaseII
             customerReservations.Add(ca3);
 
         }
+        // Create some users and reservations for the system to use.
 
         static void Menu()
         {
@@ -98,6 +100,8 @@ namespace Restaurant_PhaseII
                         break;
                 }
             }
+            // Creates the entire menu along with the options for users to select.
+            // Depending on their input, the menu responds in different ways.
         }
 
 
@@ -123,6 +127,8 @@ namespace Restaurant_PhaseII
             {
                 Console.WriteLine($"You are already logged in as {authenticatedCustomer.Username}");
             }
+            // Login menu for users with created profiles.
+            // Correct user and password allows access, if incorrect, the user is told.
         }
 
 
@@ -137,6 +143,8 @@ namespace Restaurant_PhaseII
             {
                 Console.WriteLine("You are not logged in!");
             }
+            // Logout menu allows users to logout.
+            // If user isn't logged in to begin with, they're told.
         }
 
         static void SignupMenu()
@@ -162,6 +170,7 @@ namespace Restaurant_PhaseII
 
             Console.WriteLine("Profile created!");
         }
+        // If users do not have an account, they can easily sign up.
 
         static void GetCurrentReservationsMenu()
         {
@@ -222,7 +231,9 @@ namespace Restaurant_PhaseII
                 Console.WriteLine("You must be logged in to make a reservation.");
                 return;
             }
+            // Makes sure users are logged in.
 
+            // Users enter the date and time they wish to schedule a reservation for.
             Console.Write("Enter the date of your reservation (mm/dd/yyyy): ");
             DateTime date;
             while (!DateTime.TryParse(Console.ReadLine(), out date))

@@ -15,6 +15,8 @@ namespace Restaurant_PhaseII.Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        // All details needed for a user to sign up which allows them to view and make reservations.
+
         public Customer()
         {
             autoIncrement++;
