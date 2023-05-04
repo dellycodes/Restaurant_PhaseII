@@ -1,6 +1,7 @@
 ﻿using Restaurant_PhaseII.Model;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Globalization;
 
 namespace Restaurant_PhaseII
 {
@@ -10,8 +11,9 @@ namespace Restaurant_PhaseII
         private static List<Reservation> reservations;
         private static List<CustomerReservation> customerReservations;
         private static Customer authenticatedCustomer;
+        public static List<Customer> ReservedTables { get; set; } = new List<Customer>();
 
-        
+
         static void Main(string[] args)
         {
             Console.WriteLine("Initializing...");
@@ -169,18 +171,47 @@ namespace Restaurant_PhaseII
                 return;
             }
 
-            var reservationList = customerReservations.Where(o => o.customer.Username == authenticatedCustomer.Username);
+            Console.WriteLine("Available reservations:");
+            Console.WriteLine(" ");
 
-            if(reservationList.Count() == 0)
+            for (int i = 0; i < 7; i++)
             {
-                Console.WriteLine("0 reservations found.");
-            }
-            else
-            {
-                foreach(var reservation in reservationList)
+                DateTime date = DateTime.Today.AddDays(i);
+                Console.WriteLine(date.ToString("D"));
+                Console.WriteLine(" ");
+
+                // Create a list of time slots for this day
+                List<DateTime> timeSlots = new List<DateTime>();
+                DateTime startTime = date.Date.AddHours(17);
+                DateTime endTime = date.Date.AddHours(21);
+                while (startTime < endTime)
                 {
-                    Console.WriteLine(reservation.reservation.date);
+                    timeSlots.Add(startTime);
+                    startTime = startTime.AddMinutes(60);
                 }
+
+                // Check each time slot for availability
+                foreach (DateTime timeSlot in timeSlots)
+                {
+                    bool isAvailable = true;
+                    foreach (var reservation in reservations)
+                    {
+                        if (reservation.date.Date == date.Date && reservation.time == timeSlot)
+                        {
+                            if (!reservation.IsAvailable(1))
+                            {
+                                isAvailable = false;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (isAvailable)
+                    {
+                        Console.WriteLine(timeSlot.ToString("t"));
+                    }
+                }
+                Console.WriteLine();
             }
         }
 
@@ -199,11 +230,18 @@ namespace Restaurant_PhaseII
                 Console.Write("Invalid date format. Please enter a date in the format mm/dd/yyyy: ");
             }
 
-            // Check if the requested reservation date is available
+            Console.Write("Enter the time of your reservation (h:mm): ");
+            DateTime time;
+            while (!DateTime.TryParse(Console.ReadLine(), out time))
+            {
+                Console.Write("Invalid time format. Please enter a time in the format h:mm: ");
+            }
+
+            // Check if the requested reservation date and time is available
             bool isAvailable = true;
             foreach (var reservation in reservations)
             {
-                if (reservation.date.Date == date.Date && !reservation.IsAvailable(1))
+                if (reservation.date == date && reservation.time == time && !reservation.IsAvailable())
                 {
                     isAvailable = false;
                     break;
@@ -216,26 +254,32 @@ namespace Restaurant_PhaseII
                 var newReservation = new Reservation
                 {
                     date = date,
+                    time = time,
+                    ReservedTables = new List<Customer> { new Customer() }
                 };
 
                 reservations.Add(newReservation);
 
-                // Create a new customer reservation and add it to the list of customer reservations
-                var newCustomerReservation = new CustomerReservation(authenticatedCustomer, newReservation);
-                customerReservations.Add(newCustomerReservation);
+                // Update the total number of reserved tables for this date and time
+                var reservedTables = reservations.Where(r => r.date == date && r.time == time).Sum(r => ReservedTables.Count);
+                if (reservedTables >= Reservation.TotalTables)
+                {
+                    Console.WriteLine("Sorry, the requested time is fully booked.");
+                    reservations.Remove(newReservation);
+                }
+                else
+                {
+                    // Create a new customer reservation and add it to the list of customer reservations
+                    var newCustomerReservation = new CustomerReservation(authenticatedCustomer, newReservation);
+                    customerReservations.Add(newCustomerReservation);
 
-                Console.WriteLine("Reservation created!");
+                    Console.WriteLine("Reservation created!");
+                }
             }
             else
             {
-                Console.WriteLine("Sorry, the requested date is not available.");
+                Console.WriteLine("Sorry, the requested date and time is not available.");
             }
         }
-
-        public void MakeReservation()
-        {
-            var Reserved = new Reservation();
-        }
-
     }
 }  
